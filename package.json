@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src --exec node src/index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:undo": "npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx sequelize-cli db:seed:all",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,5 +29,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChamithDilshanKahandawala/Role-Based-eCommerce-Admin-Dashboard-AdminJS-Sequelize-PostgreSQL-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChamithDilshanKahandawala/Role-Based-eCommerce-Admin-Dashboard-AdminJS-Sequelize-PostgreSQL-/issues"
+  },
+  "homepage": "https://github.com/ChamithDilshanKahandawala/Role-Based-eCommerce-Admin-Dashboard-AdminJS-Sequelize-PostgreSQL-#readme"
 }
