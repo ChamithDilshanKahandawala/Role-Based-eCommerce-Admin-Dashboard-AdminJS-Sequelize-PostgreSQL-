@@ -20,7 +20,7 @@ Order.hasMany(OrderItem,{foreignKey:'orderId',onDelete:'CASCADE'});
 OrderItem.belongsTo(Order,{foreignKey:'orderId'});
 
 Product.hasMany(OrderItem,{foreignKey:'productId'});
-OrderItem.belongsTo(Productm{foreignKey:'productId'});
+OrderItem.belongsTo(Product{foreignKey:'productId'});
 
 //Initialize Functions
 
