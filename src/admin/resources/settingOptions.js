@@ -1,21 +1,15 @@
-
 const isAdmin = require('./isAdmin');
+const { isVisible } = require('./userOption');
 
-const userOption = {
+const settingOptions = {
     isVisible:isAdmin,
 
     actions:{
-        //admins can allow all actions
         list:{isAccessible:isAdmin},
+        new:{isAccessible:isAdmin},
         edit:{isAccessible:isAdmin},
         delete:{isAccessible:isAdmin},
-        new:{isAccessible:isAdmin},
         show:{isAccessible:isAdmin},
     },
-
-    properties:{
-        password:{isVisible:false},
-    },
 };
-
-module.exports = userOption;
+module.exports = settingOptions;
