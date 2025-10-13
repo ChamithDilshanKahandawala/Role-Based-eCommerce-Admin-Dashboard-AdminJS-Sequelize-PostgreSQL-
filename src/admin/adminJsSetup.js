@@ -1,5 +1,5 @@
 const AdminJS = require('adminjs');
-const AdminJSSequelize = require('@adminjs/sequelize');
+const AdminJSSequelize = require('@adminjs/sequelize'); 
 const AdminJSExpress = require('@adminjs/express');
 const bcrypt = require('bcryptjs');
 
@@ -7,13 +7,12 @@ const { initializeDatabase, User, Product, Category, Order, OrderItem, Setting }
 
 const userOptions = require('./resources/userOptions');
 const settingOptions = require('./resources/settingOptions');
-const { isVisible } = require('./resources/userOption');
-const { use } = require('react');
 
 
-AdminJS.registerAdapter(AdminJSSequelize);
+const AdminJSSequelizeAdapter = AdminJSSequelize.default || AdminJSSequelize;
+AdminJS.registerAdapter(AdminJSSequelizeAdapter);
 
-const createAdminUser = async ()=>{
+const createAdminApp = async ()=>{
     await initializeDatabase();
 
     const adminJS = new AdminJS({
@@ -39,24 +38,24 @@ const createAdminUser = async ()=>{
                 handler:async(request,response,context)=>{
                     const isAdmin = context.currentAdmin && context.currentAdmin.role === 'admin';
 
-                    let summery = [];
+                    let summaryData = [];
                     if(isAdmin){
                         const userCount = await User.count();
                         const productCount = await Product.count();
                         const categoryCount = await Category.count();
                         const orderCount = await Order.count();
-                        summery = [
-                            { label: 'Users', count: userCount },
-                            { label: 'Products', count: productCount },
-                            { label: 'Categories', count: categoryCount },
-                            { label: 'Orders', count: orderCount },
+                        summaryData = [
+                            { title: 'Total Users', value: userCount },
+                            { title: 'Total Products', value: productCount },
+                            { title: 'Total Categories', value: categoryCount },
+                            { title: 'Total Orders', value: orderCount },
                         ];
                     }
                     return{
                         content:{
                             title:isAdmin ? 'Admin Dashboard' : 'User Dashboard',
                             isAdmin:isAdmin,
-                            summery:summery,
+                            summery:summeryData,
 
                         }
                     };
@@ -85,9 +84,9 @@ const createAdminUser = async ()=>{
         adminJS,
         {
             authenticate:async(email,password,req)=>{
-                const user = await User.scope('withPassword').findOne({where:{email}});
+                const user = await user.scope('withPassword').findOne({where:{email}});
 
-                if(User (await bcrypt.compare(password,User.password))){
+                if(User (await bcrypt.compare(password,user.password))){
                     return {email:user.email, role:user.role};
 
 
@@ -103,4 +102,4 @@ const createAdminUser = async ()=>{
     return {adminJS, adminRouter};
 };
 
-module.exports = createAdminUser;
+module.exports = createAdminApp;

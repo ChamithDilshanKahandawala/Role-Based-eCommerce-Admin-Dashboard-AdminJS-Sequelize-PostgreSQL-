@@ -1,0 +1,2 @@
+root: F:\Intern\Role-Based eCommerce Admin Dashboard_Test\Role-Based eCommerce Admin Dashboard\nvm
+path: C:\nvm4w\nodejs

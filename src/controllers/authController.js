@@ -1,10 +1,10 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const {User} = require('../models');
 const { use } = require('react');
 
-const JWR_SECRET = process.env.JWR_SECRET || "Error In JWT Token. CHeck It";
+const JWT_SECRET = process.env.JWT_SECRET || "Error In JWT Token. CHeck It";
 
 exports.login = async(req,res)=>{
     const {email,password} =req.body;
@@ -17,11 +17,11 @@ exports.login = async(req,res)=>{
 
         }
         //store password securely
-        const isMatch = await bcrypt.compare(password,user.password);
+         const isMatch = await bcrypt.compare(password, user.password);
 
         if(!isMatch){
-            return res.status(401).json({message:'AutInvalid credentials (Password mismatch).'});
-    }
+            return res.status(401).json({ message: 'Invalid credentials (Password mismatch).' }); 
+        }
 
     //Generate JWT Token
         const token = jwt.sign(
@@ -29,7 +29,7 @@ exports.login = async(req,res)=>{
                 email:user.email,
                 role:user.role
             },
-            JWR_SECRET,
+            JWT_SECRET,
             {expiresIn:'1h'}
         );
 

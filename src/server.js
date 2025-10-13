@@ -1,17 +1,20 @@
 const express = require('express');
+const cookieParser = require('cookie-parser'); 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-const createAdminUser = require('./admin/adminJsSetup');
+
+const createAdminApp = require('./admin/adminJsSetup'); 
 const authRoutes = require('./routes/auth');
-const { default: AdminJS } = require('adminjs');
 
 //middleware setup
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 
 const startServer = async()=>{
     try{
-        const{ adminJs,adminRouter} = await createAdminUser();
+        const{ adminJs,adminRouter} = await createAdminApp();
 
         app.use('/api',authRoutes);
 
@@ -27,6 +30,7 @@ const startServer = async()=>{
         });
     }catch(error){
         console.error('Error starting server:', error);
+         process.exit(1); 
     }
 };
 

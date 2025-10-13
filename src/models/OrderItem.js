@@ -8,7 +8,7 @@ const OrderItem  = sequelize.define('OrderItem',{
         primaryKey:true,
         autoIncrement:true,
     },
-    quentity:{
+    quantity:{
         type:DataTypes.INTEGER,
         allowNull:false,
         defaultValue:1,

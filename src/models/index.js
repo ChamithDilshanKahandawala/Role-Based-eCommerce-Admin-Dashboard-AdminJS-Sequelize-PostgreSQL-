@@ -20,20 +20,21 @@ Order.hasMany(OrderItem,{foreignKey:'orderId',onDelete:'CASCADE'});
 OrderItem.belongsTo(Order,{foreignKey:'orderId'});
 
 Product.hasMany(OrderItem,{foreignKey:'productId'});
-OrderItem.belongsTo(Product{foreignKey:'productId'});
+OrderItem.belongsTo(Product,{foreignKey:'productId'});
 
 //Initialize Functions
 
 const CreateDefaultAdminAndSettings = async () =>{
     const hashedPassword = await bcrypt.hash('passwprd123',10);
+        const adminEmail = 'admin@example.com';
 
     await User.findOrCreate({
         where:{
-            email:'admin@exmple.com'
+            email:adminEmail
         },
         defaults:{
-            email:'admin@example.com',
-            hashedPassword:hashedPassword,
+            email:adminEmail,
+             password: hashedPassword,
             role:'admin',
             firstName:'System',
             lastName:'Admin'

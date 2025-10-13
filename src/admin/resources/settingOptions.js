@@ -1,5 +1,5 @@
 const isAdmin = require('./isAdmin');
-const { isVisible } = require('./userOption');
+
 
 const settingOptions = {
     isVisible:isAdmin,

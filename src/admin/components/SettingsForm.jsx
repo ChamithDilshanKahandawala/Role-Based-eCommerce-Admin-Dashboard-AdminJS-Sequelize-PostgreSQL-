@@ -1,6 +1,6 @@
 import React from "react";
 
-const settingsForm = =>{
+const SettingsForm = () => {
     return(
         <div style={{ padding: '20px' }}>
             <h2>Site Setting Management</h2>
